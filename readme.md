@@ -52,6 +52,14 @@ dotnet --version
 # checkout the BitBot code
 git clone https://github.com/donbing/BlitBot.git
 
-
-
 '''
+
+
+# TODO
+
+ - exchange search input
+ - configure when to show the TA widget
+ - locale config
+ - timezone config
+ - add VNC server
+ - rebuild on comitup
