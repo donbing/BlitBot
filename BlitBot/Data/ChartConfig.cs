@@ -1,6 +1,4 @@
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using BlitBot.Annotations;
 using DevExpress.Mvvm.CodeGenerators;
 
 namespace BlitBot.Data;
@@ -9,13 +7,13 @@ namespace BlitBot.Data;
 public partial class ChartConfig : INotifyPropertyChanged
 {
     [GenerateProperty]
-    public string symbol  = "XBTUSD";
+    ExchangeSymbol symbol = new ExchangeSymbol { Symbol = "XBTUSD" };
     [GenerateProperty]
-    public string locale = "en";
+    string locale = "en";
     [GenerateProperty]
-    public string timeZone = "Etc/UTC";
+    string timeZone = "Etc/UTC";
     [GenerateProperty]
-    public string interval = "240";
+    string interval = "240";
 
     public event EventHandler OnChartChanged = 
         (sender, args) => { };
@@ -24,11 +22,4 @@ public partial class ChartConfig : INotifyPropertyChanged
         OnChartChanged.Invoke(this, new EventArgs());
 
     public event PropertyChangedEventHandler? PropertyChanged;
-
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        Updated();
-    }
 }
