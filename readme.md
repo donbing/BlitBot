@@ -25,6 +25,9 @@ xset s off            # turn off screen saver
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
 
+# run Blitbot
+dotnet run --project  ~/BlitBot/BlitBot
+
 # Run Chromium in kiosk mode
 chromium-browser  --noerrdialogs --disable-infobars --check-for-update-interval=31536000 --kiosk $KIOSK_URL 
 ' | sudo tee -a  /etc/xdg/openbox/autostart
@@ -38,8 +41,6 @@ echo '$KIOSK_URL=http://localhost/FullChart' | sudo tee -a /etc/xdg/openbox/envi
 # set the pi to autologin
 raspi-config nonint do_boot_behaviour B2
 
-
-
 # setup .net
 curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel Current
 echo 'export DOTNET_ROOT=$HOME/.dotnet' >> ~/.bashrc
@@ -48,8 +49,9 @@ source ~/.bashrc
 # check it worked
 dotnet --version
 
+# checkout the BitBot code
 git clone https://github.com/donbing/BlitBot.git
-cd Blitbot/BlitBot
-dotnet run
+
+
 
 '''
