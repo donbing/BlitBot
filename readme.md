@@ -26,17 +26,17 @@ sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Loc
 sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
 
 # run Blitbot
-dotnet run --project  ~/BlitBot/BlitBot
+~/.dotnet/dotnet run --project ~/BlitBot/BlitBot > /dev/null 2>&1 &
 
 # Run Chromium in kiosk mode
 chromium-browser  --noerrdialogs --disable-infobars --check-for-update-interval=31536000 --kiosk $KIOSK_URL 
 ' | sudo tee -a  /etc/xdg/openbox/autostart
 
-# setup global kiosk url
+# start x-server on boot
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor' | sudo tee -a ~/.bash_profile
 
-# start x-server on boot
-echo '$KIOSK_URL=http://localhost/FullChart' | sudo tee -a /etc/xdg/openbox/environment
+# setup global kiosk url
+echo '$KIOSK_URL=http://localhost:5009/FullChart' | sudo tee -a /etc/xdg/openbox/environment
 
 # set the pi to autologin
 raspi-config nonint do_boot_behaviour B2
