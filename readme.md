@@ -5,7 +5,8 @@
 - config editor web-page allows live updates to the chart view on other devices.
 
 > shell cmds for kiosk setup (based on buster lite image, bullseye fails)
-'''sh
+
+```sh
 
 # install hyperpixel drivers
 curl https://get.pimoroni.com/hyperpixel4 | bash
@@ -52,7 +53,7 @@ dotnet --version
 # checkout the BitBot code
 git clone https://github.com/donbing/BlitBot.git
 
-'''
+```
 
 
 # TODO
