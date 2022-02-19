@@ -1,0 +1,40 @@
+﻿@inject Data.ChartService c;
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    article.content {
+        margin: 0;
+        padding: 0!important;
+        height: 100%;
+    }
+    
+    article.content > div {
+        height: 100%;
+    }
+</style>
+
+<div id="tradingview_515f8"></div>
+
+@code
+{
+    protected override Task OnInitializedAsync()
+    {
+        c.config.OnChartChanged += (o, e) =>
+        {
+            this.InvokeAsync(async () =>
+            {
+                await c.DrawChart();
+                this.StateHasChanged();
+            });
+        };
+        
+        return base.OnInitializedAsync();
+    }
+
+
+    protected override Task OnAfterRenderAsync(bool firstRender) => 
+        c.DrawChart();
+}
