@@ -1,76 +1,60 @@
 ﻿@page "/EditChart"
 
 @inject BlitBot.Data.ChartService c
-@inject HttpClient httpClient
+@inject SymbolSearchForm search
 
 @using Blazored.Typeahead
+@using System.Collections.Specialized
+@using System.ComponentModel
+@using Data
 
 <PageTitle>BlitBot Config</PageTitle>
 
-<h1>Config</h1>
-
-
+<h1>🤖 BlitBot Config</h1>
+<hr/>
 <EditForm Model="search">
-    
-    <InputRadioGroup @bind-Value="search.Type">
-        @foreach (var type in Types)
-        {
-            <label>
-                @type
-                <InputRadio Value="@type" checked="@(search.Type.Equals(@type))"/>
-            </label>
-        }
-    </InputRadioGroup>
-
-
-    <BlazoredTypeahead SearchMethod="SearchSymbols"
-                       TValue="ExchangeSymbol"
-                       TItem="ExchangeSymbol"
-                       Value="SelectedSymbol"
-                       ValueChanged="SelectedResultChanged"
-                       ValueExpression="@(() => SelectedSymbol)"> 
-        <SelectedTemplate Context="TypeAheadContext">
-            @TypeAheadContext.Exchange:@TypeAheadContext.Symbol
-        </SelectedTemplate>
-        <ResultTemplate Context="TypeAheadContext">
-            @TypeAheadContext.Exchange:@TypeAheadContext.Symbol (@TypeAheadContext.Description)
-        </ResultTemplate>
-    </BlazoredTypeahead>
+    <fieldset class="form-check">
+        <h3><label for="interval">Interval</label></h3>
+        <InputSelect id="interval" @bind-Value="c.config.Interval">
+            @foreach (var interval in c.Intervals)
+            {
+                <option value="@interval.Item1" selected="@(c.config.Interval.Equals(interval))">@interval.Item2</option>
+            }
+        </InputSelect>
+    </fieldset>
+    <hr/>
+    <fieldset class="form-check">
+        <h3><label for="timeZone">TimeZone</label></h3>
+        <BlazoredTypeahead id="timeZone"  SearchMethod="c.SearchTimeZones" @bind-Value="c.config.TimeZone">
+            <SelectedTemplate Context="TimeZoneContext">
+                @TimeZoneContext
+            </SelectedTemplate>
+            <ResultTemplate Context="TimeZoneContext">
+                @TimeZoneContext
+            </ResultTemplate>
+        </BlazoredTypeahead>
+    </fieldset>
+    <hr/>
+    <fieldset class="form-check">
+        <h3><label for="symbol">Symbol</label></h3>
+        <BlazoredTypeahead id="symbol" SearchMethod="search.SearchSymbols"
+                            MaximumSuggestions="50" 
+                            @bind-Value="c.config.Symbol">
+            <SelectedTemplate Context="SymbolContext">
+                @SymbolContext.Exchange:@SymbolContext.Symbol
+            </SelectedTemplate>
+            <ResultTemplate Context="SymbolContext">
+                @SymbolContext.Exchange:@SymbolContext.Symbol (@SymbolContext.Description)
+            </ResultTemplate>
+        </BlazoredTypeahead>
+        <div class="btn-group   " role="group">
+            <InputRadioGroup @bind-Value="search.SymbolType">
+                @foreach (var type in c.symbolTypes)
+                {
+                    <InputRadio id="@type" class="btn-check" Value="@type" checked="@(search.SymbolType.Equals(@type))"/>
+                    <label class="btn btn-outline-primary" for="@type">@type</label>
+                }
+            </InputRadioGroup>
+        </div>
+    </fieldset>
 </EditForm>    
-
-@code 
-{
-    private IEnumerable<string> Types = new[] { "all", "stock", "futures", "forex", "crypto", "index", "bond", "economy" };
-    private string SelectedType;
-    private List<ExchangeSymbol> ExchangeSymbols;
-    private ExchangeSymbol SelectedSymbol;
-
-    SearchModel search = new SearchModel { Type = "all" };
-
-    private async Task<IEnumerable<ExchangeSymbol>> SearchSymbols(string searchText)
-    {
-        var searchType = search.Type == "all" ? null : search.Type;
-        return await httpClient.GetFromJsonAsync<List<ExchangeSymbol>>($"https://symbol-search.tradingview.com/symbol_search/?text={searchText}&type={searchType}");
-    }
-    
-    private async Task SelectedResultChanged(ExchangeSymbol s)
-    {
-        SelectedSymbol = s;
-        c.config.Symbol = s.Symbol;
-        c.config.Updated();
-    }
-
-    class SearchModel
-    {
-        public string Type { get; set; }
-    }
-
-    class ExchangeSymbol
-    {
-        public string Symbol { get; set; }
-        public string Description { get; set; }
-        public string Type { get; set; }
-        public string Exchange { get; set; }
-        public string Provider_id { get; set; }
-    }
-}
