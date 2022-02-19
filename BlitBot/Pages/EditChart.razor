@@ -38,6 +38,7 @@
     <fieldset class="form-check">
         <h3><label for="symbol">Symbol</label></h3>
         <BlazoredTypeahead id="symbol" SearchMethod="search.SearchSymbols"
+                            MaximumSuggestions="50" 
                             @bind-Value="c.config.Symbol">
             <SelectedTemplate Context="SymbolContext">
                 @SymbolContext.Exchange:@SymbolContext.Symbol
@@ -46,7 +47,7 @@
                 @SymbolContext.Exchange:@SymbolContext.Symbol (@SymbolContext.Description)
             </ResultTemplate>
         </BlazoredTypeahead>
-        <div class="btn-group" role="group">
+        <div class="btn-group   " role="group">
             <InputRadioGroup @bind-Value="search.SymbolType">
                 @foreach (var type in c.symbolTypes)
                 {

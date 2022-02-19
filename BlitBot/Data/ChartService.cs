@@ -8,7 +8,7 @@ public class ChartService
     readonly IJSRuntime js;
     public readonly ChartConfig config;
 
-    public readonly IEnumerable<string> symbolTypes = new[] { "all", "stock", "futures", "forex", "crypto", "index", "bond", "economy" };
+    public readonly IEnumerable<string> symbolTypes = new[] { "all", "stock", "futures", "forex", "bitcoin%2Ccrypto", "index", "bond", "economic" };
 
     public IEnumerable<(string, string)> Intervals = new[]
     {
