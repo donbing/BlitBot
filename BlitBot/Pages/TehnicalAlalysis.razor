@@ -1,0 +1,47 @@
+﻿@page "/TechnicalAnalysis"
+@using System.Text.Json
+
+@inject IJSRuntime js
+
+<style>
+    html, body, .page {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    article.content {
+        margin: 0;
+        padding: 0!important;
+        height: 100%;
+    }
+    
+    article.content > div {
+        height: 100%;
+    }
+</style>
+
+<PageTitle>Technical Analysis</PageTitle>
+
+<div class="tradingview-widget-container"></div>
+
+@code
+{
+    string args = JsonSerializer.Serialize(new
+    {
+        interval = "1m",
+        width = "100%",
+        isTransparent = false,
+        height = "100%",
+        symbol = "NASDAQ:AAPL",
+        //showIntervalTabs = true,
+        locale = "en",
+        colorTheme = "dark",
+    });
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var targetUrl = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+        await js.InvokeVoidAsync("scriptLoader", targetUrl, ".tradingview-widget-container", args);
+    }
+}

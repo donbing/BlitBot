@@ -17,5 +17,30 @@
                 "container_id": "tradingview_515f8"
             }
         )
+    },
+    analysis: function(symbol) {
+
     }
-}   
+};
+
+window.scriptLoader = function(sourceUrl, targetElement, innerHtml) {
+    if (sourceUrl.Length == 0) {
+        console.error("Invalid source URL");
+        return;
+    }
+
+    var tag = document.createElement('script');
+    tag.src = sourceUrl;
+    tag.type = "text/javascript";
+
+    tag.onload = function () {
+        console.log("Script loaded successfully");
+    }
+
+    tag.onerror = function () {
+        console.error("Failed to load script");
+    }
+    tag.innerHTML = innerHtml
+    const target = document.querySelector(targetElement);
+    target.appendChild(tag);
+};
