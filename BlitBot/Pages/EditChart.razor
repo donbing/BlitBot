@@ -107,6 +107,14 @@
         <InputText @bind-Value="navUrl" id="navigate"/>
         <button @onclick="Navigate">Navigate</button>
     </div>
+    <div> 
+        <label for="sleep">
+            <small class="form-text text-muted">
+                Sleep/Wake the screen
+            </small>
+        </label>
+        <InputCheckbox @onchange="SleepChanged" id="sleep"/>
+    </div>
 <Chart/>
 </EditForm>    
 @code{
@@ -120,4 +128,9 @@
             }
         }
 
+        private void SleepChanged(ChangeEventArgs e)
+        {
+            var state = Convert.ToBoolean(e.Value);
+            ShellHelper.LinuxSleepScreen(state);
+        }
 }
