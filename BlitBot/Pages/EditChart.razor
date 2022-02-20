@@ -113,24 +113,25 @@
                 Sleep/Wake the screen
             </small>
         </label>
-        <InputCheckbox @onchange="SleepChanged" id="sleep"/>
+        <InputCheckbox @bind-Value="Sleep" id="sleep"/>
     </div>
 <Chart/>
 </EditForm>    
 @code{
-        string navUrl = string.Empty;
 
-        async Task Navigate()
-        {
-            if(Uri.TryCreate(navUrl, new UriCreationOptions(), out var uri))
-            {
-                await c.Navigate(uri);
-            }
-        }
+    bool sleep  = false;
+    bool Sleep 
+    { 
+        get => sleep; 
+        set => ShellHelper.LinuxSleepScreen(sleep = value); 
+    }
 
-        private void SleepChanged(ChangeEventArgs e)
+    string navUrl = string.Empty;
+    async Task Navigate()
+    {
+        if(Uri.TryCreate(navUrl, new UriCreationOptions(), out var uri))
         {
-            var state = Convert.ToBoolean(e.Value);
-            ShellHelper.LinuxSleepScreen(state);
+            await c.Navigate(uri);
         }
+    }
 }
