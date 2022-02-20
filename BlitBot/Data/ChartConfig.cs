@@ -14,6 +14,10 @@ public partial class ChartConfig : INotifyPropertyChanged
     string timeZone = "Etc/UTC";
     [GenerateProperty]
     string interval = "240";
+    [GenerateProperty]
+    bool showDetails = false;
+    [GenerateProperty]
+    string[] indicators = Array.Empty<string>();
 
     public event EventHandler OnChartChanged = 
         (sender, args) => { };

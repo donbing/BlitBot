@@ -20,8 +20,16 @@ public partial class SymbolSearchForm : INotifyPropertyChanged
 
     public async Task<IEnumerable<ExchangeSymbol>> SearchSymbols(string searchText)
     {
+        var matchedSymbols = await QueryTradingViewSymbols(searchText);
+        return matchedSymbols
+            .OrderBy(s => s.Symbol)
+            .ThenBy(s => s.Exchange);
+    }
+
+    private async Task<IEnumerable<ExchangeSymbol>> QueryTradingViewSymbols(string searchText)
+    {
         var searchType = symbolType == "all" ? null : symbolType;
-        var requestUri = $"https://symbol-search.tradingview.com/symbol_search/?text={searchText}&type={searchType}&exchange={exchange}";
+        var requestUri = $"https://symbol-search.tradingview.com/symbol_search/?text={searchText}&type={searchType}";
         var matchedSymbols = await httpClient.GetFromJsonAsync<List<ExchangeSymbol>>(requestUri);
         return matchedSymbols ?? Enumerable.Empty<ExchangeSymbol>();
     }
