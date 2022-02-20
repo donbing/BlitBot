@@ -1,5 +1,5 @@
 ﻿window.charting = {
-    show: function(symbol, locale, timezone, interval) {
+    show: function(symbol, locale, timezone, interval, showDetails, indicators) {
         new TradingView.widget(
             {
                 "autosize": true,
@@ -14,8 +14,9 @@
                 "hide_top_toolbar": true,
                 "allow_symbol_change": true,
                 "save_image": false,
-                "details": false,
-                "container_id": "tradingview_515f8"
+                "details": showDetails,
+                "container_id": "tradingview_515f8",
+                "studies": indicators,
             }
         )
     }

@@ -74,6 +74,29 @@
                 </InputSelect>
             </div>
         </div>
+         <div class="col-auto">
+            <label for="showDetails">
+                <small class="form-text text-muted">
+                  Show Symbol Details
+                </small>
+            </label>
+            <InputCheckbox id="showDetails" @bind-Value="c.config.ShowDetails" class="form-control"/>
+        </div>
+         <div class="col-auto">
+            <label for="indicators">
+                <small class="form-text text-muted">
+                  Indicators
+                </small>
+            </label>
+            <div>
+                <InputSelect id="indicators" class="form-control" @bind-Value="c.config.Indicators" multiple="multiple">
+                    @foreach (var indicator in c.Indicators)
+                    {
+                        <option value="@indicator" selected="@(c.config.Indicators.Contains(indicator))">@indicator.Replace("@tv-basicstudies","")</option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
     </div>
    
 </EditForm>    

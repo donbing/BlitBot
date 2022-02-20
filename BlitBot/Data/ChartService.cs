@@ -11,6 +11,70 @@ public class ChartService : IDisposable
 
     public readonly IEnumerable<string> symbolTypes = new[] { "all", "stock", "futures", "forex", "crypto", "index", "bond", "economic" };
 
+    public readonly IEnumerable<string> Indicators = new[] {
+        "ACCD@tv-basicstudies",
+        "studyADR@tv-basicstudies",
+        "AROON@tv-basicstudies",
+        "ATR@tv-basicstudies",
+        "AwesomeOscillator@tv-basicstudies",
+        "BB@tv-basicstudies",
+        "BollingerBandsR@tv-basicstudies",
+        "BollingerBandsWidth@tv-basicstudies",
+        "CMF@tv-basicstudies",
+        "ChaikinOscillator@tv-basicstudies",
+        "chandeMO@tv-basicstudies",
+        "ChoppinessIndex@tv-basicstudies",
+        "CCI@tv-basicstudies",
+        "CRSI@tv-basicstudies",
+        "CorrelationCoefficient@tv-basicstudies",
+        "DetrendedPriceOscillator@tv-basicstudies",
+        "DM@tv-basicstudies",
+        "DONCH@tv-basicstudies",
+        "DoubleEMA@tv-basicstudies",
+        "EaseOfMovement@tv-basicstudies",
+        "EFI@tv-basicstudies",
+        "ENV@tv-basicstudies",
+        "FisherTransform@tv-basicstudies",
+        "HV@tv-basicstudies",
+        "hullMA@tv-basicstudies",
+        "IchimokuCloud@tv-basicstudies",
+        "KLTNR@tv-basicstudies",
+        "KST@tv-basicstudies",
+        "LinearRegression@tv-basicstudies",
+        "MACD@tv-basicstudies",
+        "MOM@tv-basicstudies",
+        "MF@tv-basicstudies",
+        "MoonPhases@tv-basicstudies",
+        "MASimple@tv-basicstudies",
+        "MAExp@tv-basicstudies",
+        "MAWeighted@tv-basicstudies",
+        "OBV@tv-basicstudies",
+        "PSAR@tv-basicstudies",
+        "PivotPointsHighLow@tv-basicstudies",
+        "PivotPointsStandard@tv-basicstudies",
+        "PriceOsc@tv-basicstudies",
+        "PriceVolumeTrend@tv-basicstudies",
+        "ROC@tv-basicstudies",
+        "RSI@tv-basicstudies",
+        "VigorIndex@tv-basicstudies",
+        "VolatilityIndex@tv-basicstudies",
+        "SMIErgodicIndicator@tv-basicstudies",
+        "SMIErgodicOscillator@tv-basicstudies",
+        "Stochastic@tv-basicstudies",
+        "StochasticRSI@tv-basicstudies",
+        "TripleEMA@tv-basicstudies",
+        "Trix@tv-basicstudies",
+        "UltimateOsc@tv-basicstudies",
+        "VSTOP@tv-basicstudies",
+        "Volume@tv-basicstudies",
+        "VWAP@tv-basicstudies",
+        "MAVolumeWeighted@tv-basicstudies",
+        "WilliamR@tv-basicstudies",
+        "WilliamsAlligator@tv-basicstudies",
+        "WilliamsFractal@tv-basicstudies",
+        "ZigZag@tv-basicstudies",
+    };
+
     public IEnumerable<(string, string)> Intervals = new[]
     {
         ("1", "1m"),
@@ -39,7 +103,7 @@ public class ChartService : IDisposable
     }
 
     public async Task DrawChart() => 
-        await js.InvokeVoidAsync("charting.show", config.Symbol.Id, config.Locale, config.TimeZone, config.Interval);
+        await js.InvokeVoidAsync("charting.show", config.Symbol.Id, config.Locale, config.TimeZone, config.Interval, config.ShowDetails, config.Indicators);
 
     const string technicalAnalysisJsUrl = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
     public async Task LoadTechnicalAnalysis(string containerElement) =>
