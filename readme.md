@@ -12,19 +12,19 @@
 curl https://get.pimoroni.com/hyperpixel4 | bash
 
 # install minimal gui packages
-sudo apt-get install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox
-sudo apt-get install -y --no-install-recommends chromium-browser
+sudo apt-get install -y --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox chromium-browser
 
 # setup gui autostart
 echo '
+
+# Remove exit errors from the config files that could trigger a warning
+# sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
+# sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
+
 # disable screen power management
 xset -dpms            # turn off display power management system
 xset s noblank        # turn off screen blanking
 xset s off            # turn off screen saver
-
-# Remove exit errors from the config files that could trigger a warning
-sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State'
-sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences
 
 # run Blitbot
 ~/.dotnet/dotnet run --project ~/BlitBot/BlitBot > /dev/null 2>&1 &
@@ -50,7 +50,7 @@ source ~/.bashrc
 # check it worked
 dotnet --version
 
-# checkout the BitBot code
+# checkout the BlitBot code
 git clone https://github.com/donbing/BlitBot.git
 
 ```

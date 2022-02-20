@@ -20,14 +20,6 @@
 
 @code
 {
-    protected override void OnInitialized() => 
-        c.config.OnChartChanged += (o, e) => 
-            this.InvokeAsync(async () =>
-            {
-                await c.DrawChart();
-                this.StateHasChanged();
-            });
-
     protected override Task OnAfterRenderAsync(bool firstRender) => 
         c.DrawChart();
 }
