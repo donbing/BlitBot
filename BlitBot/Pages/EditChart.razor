@@ -13,9 +13,13 @@
 <h1>🤖 BlitBot Config</h1>
 <hr/>
 <EditForm Model="search" class="form-inline">
-    <div class=row>
+    <div class="row">
         <div class="col-auto">
-            <label for="symbol">Symbol</label>
+            <label for="symbol">
+                <small class="form-text text-muted">
+                  Exchange and market to chart
+                </small>
+            </label>
             <BlazoredTypeahead id="symbol"  
                                 class="form-control"
                                 SearchMethod="search.SearchSymbols"
@@ -41,7 +45,11 @@
             </div>
         </div>
           <div class="form-group col-auto">
-           <label for="timeZone">TimeZone</label>
+           <label for="timeZone">
+               <small class="form-text text-muted">
+                  Your TimeZone
+                </small>
+           </label>
             <BlazoredTypeahead id="timeZone" class="form-control" SearchMethod="c.SearchTimeZones" @bind-Value="c.config.TimeZone">
                 <SelectedTemplate Context="TimeZoneContext">
                     @TimeZoneContext
@@ -52,7 +60,11 @@
             </BlazoredTypeahead>
         </div> 
         <div class="form-group col-auto">
-            <label for="interval">Interval</label>
+            <label for="interval">
+                <small class="form-text text-muted">
+                  Candle Width
+                </small>
+            </label>
             <div>
                 <InputSelect id="interval" class="form-control" @bind-Value="c.config.Interval">
                     @foreach (var interval in c.Intervals)

@@ -37,7 +37,7 @@ chromium-browser  --noerrdialogs --disable-infobars --check-for-update-interval=
 echo '[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor' | sudo tee -a ~/.bash_profile
 
 # setup global kiosk url
-echo '$KIOSK_URL=http://localhost:5009/FullChart' | sudo tee -a /etc/xdg/openbox/environment
+echo 'export KIOSK_URL=http://localhost:5009/FullChart' | sudo tee -a /etc/xdg/openbox/environment
 
 # set the pi to autologin
 raspi-config nonint do_boot_behaviour B2
