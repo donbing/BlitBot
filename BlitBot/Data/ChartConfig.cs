@@ -1,12 +1,29 @@
+using System.ComponentModel;
+using DevExpress.Mvvm.CodeGenerators;
+
 namespace BlitBot.Data;
 
-public class ChartConfig
+[GenerateViewModel]
+public partial class ChartConfig : INotifyPropertyChanged
 {
-    public string Symbol { get; set; } = "XBTUSD";
+    [GenerateProperty]
+    ExchangeSymbol symbol = new ExchangeSymbol { Symbol = "XBTUSD" };
+    [GenerateProperty]
+    string locale = "en";
+    [GenerateProperty]
+    string timeZone = "Etc/UTC";
+    [GenerateProperty]
+    string interval = "240";
+    [GenerateProperty]
+    bool showDetails = false;
+    [GenerateProperty]
+    string[] indicators = Array.Empty<string>();
 
     public event EventHandler OnChartChanged = 
         (sender, args) => { };
 
     public void Updated() => 
         OnChartChanged.Invoke(this, new EventArgs());
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 }
