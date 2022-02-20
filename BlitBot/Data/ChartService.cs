@@ -104,6 +104,9 @@ public class ChartService : IDisposable
 
     public async Task DrawChart() => 
         await js.InvokeVoidAsync("charting.show", config.Symbol.Id, config.Locale, config.TimeZone, config.Interval, config.ShowDetails, config.Indicators);
+    
+    public async Task Navigate(Uri uri) => 
+        await js.InvokeVoidAsync("pageLoader", uri);
 
     const string technicalAnalysisJsUrl = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
     public async Task LoadTechnicalAnalysis(string containerElement) =>

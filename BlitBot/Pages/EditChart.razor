@@ -98,7 +98,26 @@
             </div>
         </div>
     </div>
-   
-</EditForm>    
-
+    <div> 
+        <label for="navigate">
+            <small class="form-text text-muted">
+                Go to a URL
+            </small>
+        </label>
+        <InputText @bind-Value="navUrl" id="navigate"/>
+        <button @onclick="Navigate">Navigate</button>
+    </div>
 <Chart/>
+</EditForm>    
+@code{
+        string navUrl = string.Empty;
+
+        async Task Navigate()
+        {
+            if(Uri.TryCreate(navUrl, new UriCreationOptions(), out var uri))
+            {
+                await c.Navigate(uri);
+            }
+        }
+
+}

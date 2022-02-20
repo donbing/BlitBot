@@ -43,3 +43,7 @@ window.scriptLoader = function(sourceUrl, targetElement, innerHtml) {
     const target = document.querySelector(targetElement);
     target.appendChild(tag);
 };
+
+window.pageLoader = function (sourceUrl) {
+    window.location.href = sourceUrl;
+}
