@@ -1,7 +1,7 @@
 # BlitBot
 > Blazor Server app for showing market charts
 
-![BlitBot](docs\images\BlitBot.jpg)
+![BlitBot](docs/images/BlitBot.jpg)
 
 
 
