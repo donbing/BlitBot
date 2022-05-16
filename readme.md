@@ -60,6 +60,8 @@ git clone https://github.com/donbing/BlitBot.git
 
 ```
 
+add 
+`dtoverlay=vc4-kms-dpi-hyperpixel4sq` to `/boot/config.txt`
 
 # TODO
 
