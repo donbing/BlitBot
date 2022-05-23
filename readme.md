@@ -1,7 +1,9 @@
 # BlitBot
 > Blazor Server app for configuring market charts on a remote display
 <style type="text/css">
-    img { height: 250px;}
+    img { 
+        height: 250px;
+    }
 </style>
 ![BlitBot](docs/images/BlitBot.jpg )
 ![BlitBot](docs/images/BlitBot_angle.jpg)
