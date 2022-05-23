@@ -1,12 +1,8 @@
 # BlitBot
 > Blazor Server app for configuring market charts on a remote display
-<style type="text/css">
-    img { 
-        height: 250px;
-    }
-</style>
-![BlitBot](docs/images/BlitBot.jpg )
-![BlitBot](docs/images/BlitBot_angle.jpg)
+
+<img src="docs/images/BlitBot.jpg" height="250">
+<img src="docs/images/BlitBot_angle.jpg" height="250">
 
 - uses trading view widget
 - config editor web-page allows live updates to the chart view on other devices.
