@@ -109,6 +109,7 @@ public class ChartService : IDisposable
         await js.InvokeVoidAsync("pageLoader", uri);
 
     const string technicalAnalysisJsUrl = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+    
     public async Task LoadTechnicalAnalysis(string containerElement) =>
         await js.InvokeVoidAsync("scriptLoader", technicalAnalysisJsUrl, containerElement, JsonSerializer.Serialize(new
         {
@@ -128,8 +129,6 @@ public class ChartService : IDisposable
             .Where(tz => tz.ToLower().Contains(searchText.ToLower()))
             .OrderBy(tz => tz);
 
-    public void Dispose()
-    {
+    public void Dispose() =>
         config.PropertyChanged -= DrawChartSync;
-    }
 }
